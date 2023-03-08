@@ -1,0 +1,15 @@
+version: "3.4"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/api-dev.dockerfile
+    container_name: feedverse
+    restart: unless-stopped
+    ports:
+      - ${DOCKER_WEB_PORT-7000}:80
+    volumes:
+      - .:/usr/src/app:z
+    environment:
+      MODULE_NAME: feedverse.main
+    command: bash /start-reload.sh
